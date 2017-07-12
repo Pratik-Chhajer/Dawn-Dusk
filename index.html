@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	<link rel="shortcut icon" href="img/title.png" type="image/png">
+	<title>D&D | Dawn & Dusk | Sun rise & Sun set time finder</title>
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+
+<body>
+	<nav>
+		<div class="nav-wrapper" style="background-color: #26a69a;">
+			<ul id="nav-mobile" class="left">
+				<a href="#" class="brand-logo left">&nbsp;D&D&nbsp;</a>
+			</ul>
+			<ul id="nav-mobile" class="right">
+				<li><a href="https://goo.gl/forms/5uzPVGPDTnRFr7ur1" style="font-size: 20px;"><strong>Feedback</strong></a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="row center" style="margin-top: 10px;">
+		<h5 class="header col s12 dark teal-text">Want Sun Rise or Set time?</h5>
+	</div>
+
+	<div class="container center" style="margin-top: 10px;max-width: 450px;">
+		<div class="input-field">
+			<input id="place" type="text" class="validate">
+			<label for="place">Place Name</label>
+		</div>
+		<input type="date" class="datepicker" placeholder="Choose Date">
+		<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+			<i class="material-icons right">send</i>
+		</button>
+	</div>
+            
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="js/materialize.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('select').material_select();
+
+		window.picker = $('.datepicker').pickadate({
+			selectYears: 201, // Creates a dropdown of 200 years to control year
+			format: 'yyyy-mm-dd'
+		});
+	});
+</script>
+
+</body>
+</html>
