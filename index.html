@@ -28,20 +28,65 @@
 	</div>
 
 	<div class="container center" style="margin-top: 10px;max-width: 450px;">
+		<h5 class="header col s12 dark red-text"><span id="form_message"></span></h5>
 		<div class="input-field">
-			<input id="place" type="text" class="validate">
-			<label for="place">Place Name</label>
+			<input id="autocomplete" type="text" class="validate" placeholder="Enter your address"></input>
+			<!-- <input id="place" type="text" class="validate"> -->
+			<!-- <label for="place">Place Name</label> -->
 		</div>
-		<input type="date" class="datepicker" placeholder="Choose Date">
-		<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+		<input type="date" id="date_picked" class="datepicker" placeholder="Choose Date">
+		<button class="btn waves-effect waves-light" type="submit" name="action" id="submit_button">Submit
 			<i class="material-icons right">send</i>
 		</button>
+
+		<br><br>
+
+	<div id="result">
+		<div class="row">
+			<div class="col s12 m12">
+	          <div class="card teal">
+	            <div class="card-content white-text">
+	              <span class="card-title">Place</span>
+	            	<h6><span id="place"></span></h6>
+	            </div>
+	          </div>
+	        </div>
+		</div>
+		<div class="row">
+	        <div class="col s12 m6">
+	          <div class="card teal">
+	            <div class="card-content white-text">
+	              <span class="card-title">Sun Rise</span>
+	            		<h6><span id="rise"></span></h6>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="col s12 m6">
+	          <div class="card teal">
+	            <div class="card-content white-text">
+	              <span class="card-title">Sun Set</span>
+	            		<h6><span id="set"></span></h6>
+	            </div>
+	          </div>
+	        </div>
+	    </div>
+      </div>
+
+
+
+
+
+
+
 	</div>
+
             
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="js/materialize.min.js"></script>
 <script>
+	var lat = "";
+	var lng = "";
 	$(document).ready(function() {
 		$('select').material_select();
 
@@ -49,8 +94,121 @@
 			selectYears: 201, // Creates a dropdown of 200 years to control year
 			format: 'yyyy-mm-dd'
 		});
+		$("#result").hide();
+    $("#submit_button").click(function(){
+    	var location = document.getElementById("autocomplete").value;
+        var date = document.getElementById("date_picked").value;
+        document.getElementById("place").innerHTML = location;
+        if(location==""){
+        	$("#result").hide();
+        	document.getElementById("form_message").innerHTML = "Please Enter location first!";
+        }
+        else if(date==""){
+        	$("#result").hide();
+        	document.getElementById("form_message").innerHTML = "Please Choose date first!";
+        }
+        else if(lat==""){
+        	$("#result").hide();
+        	document.getElementById("form_message").innerHTML = "Please Enter a valid location!";
+        }
+        else{
+        	document.getElementById("form_message").innerHTML = "";
+	        console.log("location : " + location);
+	        console.log("date : " + date);
+	        $.get("https://api.sunrise-sunset.org/json?lat=" + lat + "&lng=" + lng + "&date=" + date, function(data, status){
+	          console.log();
+	          var a = data["results"]["sunrise"].split(':');
+	          console.log(a);
+	            a[0] = parseInt(a[0]);
+	            a[1] = parseInt(a[1]);
+	            a[2] = a[2].split(" ");
+	            a[2] = a[2][0];
+	            a[1] += 30;
+	            a[0] -= 12;
+	            a[0] += 5; 
+	          if(a[1] >= 60){
+	            a[0] += 1;
+	            a[1] %= 60; 
+	          }
+	          if(a[0] < 10){
+	            a[0] = '0' + a[0];
+	          }
+	          else{
+	          a[0] = '' + a[0];
+	          }
+	          if(a[1] < 10){
+	            a[1] = '0' + a[1];
+	          }
+	          else{
+	            a[1] = '' + a[1];
+	          }
+	            console.log(a);
+	            a = a[0]+ ":" + a[1] + ":" + a[2] + " AM";
+	            console.log(a);
+	            var b = data["results"]["sunset"].split(':');
+	            console.log(b);
+	            b[0] = parseInt(b[0]);
+	            b[1] = parseInt(b[1]);
+	            b[2] = b[2].split(" ");
+	            b[2] = b[2][0];
+	            b[1] += 30;
+	            b[0] += 5; 
+	          if(b[1] >= 60){
+	            b[0] += 1;
+	            b[1] %= 60; 
+	          }
+	          if(b[0] < 10){
+	            b[0] = '0' + b[0];
+	          }
+	          else{
+	          b[0] = '' + b[0];
+	          }
+	          if(b[1] < 10){
+	            b[1] = '0' + b[1];
+	          }
+	          else{
+	            b[1] = '' + b[1];
+	          }
+	            console.log(b);
+	            b = b[0]+ ":" + b[1] + ":" + b[2] + " PM";
+	            console.log(b);
+	            $("#result").show();
+	            document.getElementById("rise").innerHTML = a;
+	            document.getElementById("set").innerHTML = b;
+	        });
+	    }
+    });
+
 	});
+	var placeSearch, autocomplete;
+	function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        var options = {
+          types: ['geocode'],
+          componentRestrictions: {country: "in"}
+         };
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+            options);
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+    function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+        lat = place["geometry"]["location"]["lat"]();
+        lng = place["geometry"]["location"]["lng"]();
+        console.log("lat = " + lat);
+        console.log("lang = " + lng);
+    }
+
+
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2EvuNL673a8w-Fwt2QhVTinzTW6ZOdL8&libraries=places&callback=initAutocomplete"
+        async defer></script>
 
 </body>
 </html>
