@@ -12,74 +12,114 @@
 </head>
 
 <body>
-	<nav>
-		<div class="nav-wrapper" style="background-color: #26a69a;">
-			<ul id="nav-mobile" class="left">
-				<a href="#" class="brand-logo left">&nbsp;D&D&nbsp;</a>
-			</ul>
-			<ul id="nav-mobile" class="right">
-				<li><a href="https://goo.gl/forms/5uzPVGPDTnRFr7ur1" style="font-size: 20px;"><strong>Feedback</strong></a></li>
-			</ul>
-		</div>
-	</nav>
-
-	<div class="row center" style="margin-top: 10px;">
-		<h5 class="header col s12 dark teal-text">Want Sun Rise or Set time?</h5>
+	<div class="navbar-fixed">
+		<nav>
+			<div class="nav-wrapper">
+				<ul id="nav-mobile" class="left">
+					<a href="index.html" class="brand-logo left">&nbsp;D&D&nbsp;</a>
+				</ul>
+				<ul id="nav-mobile" class="right">
+					<li><a href="#about" style="font-size: 20px;"><strong>About</strong></a></li>
+					<li><a href="https://goo.gl/forms/5uzPVGPDTnRFr7ur1" style="font-size: 20px;"><strong>Feedback</strong></a></li>
+				</ul>
+			</div>
+		</nav>
 	</div>
 
-	<div class="container center" style="margin-top: 10px;max-width: 450px;">
-		<h5 class="header col s12 dark red-text"><span id="form_message"></span></h5>
-		<div class="input-field">
-			<input id="autocomplete" type="text" class="validate" placeholder="Enter your address"></input>
-			<!-- <input id="place" type="text" class="validate"> -->
-			<!-- <label for="place">Place Name</label> -->
+	<div class="container center" style="margin-top: 20px;">
+
+		<div id="preload">
+			<div class="preloader-wrapper large active">
+				<div class="spinner-layer spinner-teal-only">
+					<div class="circle-clipper left">
+						<div class="circle">
+						</div>
+					</div>
+					<div class="gap-patch">
+						<div class="circle">
+						</div>
+					</div>
+					<div class="circle-clipper right">
+						<div class="circle">
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<input type="date" id="date_picked" class="datepicker" placeholder="Choose Date">
-		<button class="btn waves-effect waves-light" type="submit" name="action" id="submit_button">Submit
-			<i class="material-icons right">send</i>
-		</button>
 
-		<br><br>
-
-	<div id="result">
-		<div class="row">
-			<div class="col s12 m12">
-	          <div class="card teal">
-	            <div class="card-content white-text">
-	              <span class="card-title">Place</span>
-	            	<h6><span id="place"></span></h6>
-	            </div>
-	          </div>
-	        </div>
+		<div id="result">
+			<div class="row">
+				<div class="col s12 m4">
+					<div class="card teal">
+						<div class="card-content white-text">
+							<span class="card-title">Sun Rise Time</span>
+							<h6><span id="rise"></span></h6>
+						</div>
+					</div>
+				</div>
+				<div class="col s12 m4">
+					<div class="card teal">
+						<div class="card-content white-text">
+							<span class="card-title">Place</span>
+							<h6><span id="place"></span></h6>
+						</div>
+					</div>
+				</div>
+				<div class="col s12 m4">
+					<div class="card teal">
+						<div class="card-content white-text">
+							<span class="card-title">Sun Set</span>
+							<h6><span id="set"></span></h6>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="row">
-	        <div class="col s12 m6">
-	          <div class="card teal">
-	            <div class="card-content white-text">
-	              <span class="card-title">Sun Rise</span>
-	            		<h6><span id="rise"></span></h6>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="col s12 m6">
-	          <div class="card teal">
-	            <div class="card-content white-text">
-	              <span class="card-title">Sun Set</span>
-	            		<h6><span id="set"></span></h6>
-	            </div>
-	          </div>
-	        </div>
-	    </div>
-      </div>
-
-
-
-
-
-
 
 	</div>
 
+	<div class="row">
+
+		<div class="col s12 m4">
+			<div class="card blue-grey darken-1">
+				<div class="card-content white-text">
+					<span class="center"><h5>Find Sun rise & set time!</h5></span>
+					<h5 class="header col s12 dark red-text"><span id="form_message"></span></h5>
+					<div class="input-field">
+						<input id="autocomplete" type="text" class="validate" placeholder="Enter your address">
+					</div>
+					<input type="date" id="date_picked" class="datepicker" placeholder="Choose Date">
+					<button class="btn waves-effect waves-light red" type="submit" name="action" id="submit_button">Submit<i class="material-icons right">send</i>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="col s12 m4" id="about"s>
+			<div class="card teal">
+				<div class="card-content white-text">
+					<span class="center"><h5>About D&D</h5></span>
+					<p class="flow-text">Dawn and Dusk is a web portal to find sun rise/set time for your location on any specified date. Right now it works for India only. It is maintained by <a href="http://www.pratikchhajer.me/" class="white-text"><strong>Pratik Chhajer</strong></a>.
+		        </div>
+			</div>
+		</div>
+
+		<div class="col s12 m4">
+			<div class="card indigo darken-1">
+				<div class="card-content white-text">
+					<strong><span class="center"><h5>Powered By</h5></span></strong>
+					<p class="flow-text" align="center">
+						<strong><a href="http://materializecss.com/" class="white-text">Materialize CSS</a><br></strong>
+						<strong><a href="https://sunrise-sunset.org/" class="white-text">Sunrise Sunset</a></strong><br>
+						<strong><a href="https://www.google.com/maps/" class="white-text">Google Maps</a></strong><br>
+						Source code?<br> Visit <a href="https://github.com/Pratik-Chhajer/Dawn-Dusk" class="white-text"><strong>GitHub</strong></a>.
+					</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+    
             
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -88,6 +128,33 @@
 	var lat = "";
 	var lng = "";
 	$(document).ready(function() {
+		// Add smooth scrolling to all links
+		  $("a").on('click', function(event) {
+
+		    // Make sure this.hash has a value before overriding default behavior
+		    if (this.hash !== "") {
+		      // Prevent default anchor click behavior
+		      event.preventDefault();
+
+		      // Store hash
+		      var hash = this.hash;
+
+		      // Using jQuery's animate() method to add smooth page scroll
+		      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+		      $('html, body').animate({
+		        scrollTop: $(hash).offset().top
+		      }, 800, function(){
+		   
+		        // Add hash (#) to URL when done scrolling (default click behavior)
+		        window.location.hash = hash;
+		      });
+		    } // End if
+		  });
+
+
+
+
+
 		$('select').material_select();
 
 		window.picker = $('.datepicker').pickadate({
@@ -95,7 +162,9 @@
 			format: 'yyyy-mm-dd'
 		});
 		$("#result").hide();
+		$("#preload").hide();
     $("#submit_button").click(function(){
+    	$("#result").hide();
     	var location = document.getElementById("autocomplete").value;
         var date = document.getElementById("date_picked").value;
         document.getElementById("place").innerHTML = location;
@@ -112,6 +181,9 @@
         	document.getElementById("form_message").innerHTML = "Please Enter a valid location!";
         }
         else{
+        	$("html, body").animate({ scrollTop: 0 }, "slow");
+        	$("#preload").show();
+        	document.getElementById("submit_button").disabled = true;
         	document.getElementById("form_message").innerHTML = "";
 	        console.log("location : " + location);
 	        console.log("date : " + date);
@@ -172,9 +244,12 @@
 	            console.log(b);
 	            b = b[0]+ ":" + b[1] + ":" + b[2] + " PM";
 	            console.log(b);
+	            $("#preload").hide();
 	            $("#result").show();
 	            document.getElementById("rise").innerHTML = a;
 	            document.getElementById("set").innerHTML = b;
+	            document.getElementById("submit_button").disabled = false;
+
 	        });
 	    }
     });
