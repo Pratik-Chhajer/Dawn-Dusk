@@ -7,3 +7,6 @@ A web portal to calculate Sun rise and Sun set Time.
 
 ## Code compressor tool Used
 * miniwebtool
+
+## ToDos
+* Android Application for same
