@@ -155,6 +155,19 @@
 	<script src="js/materialize.min.js">
 	</script>
 	<script>
+		// Adding current date to form
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+		if(dd<10) {
+			dd = '0'+dd
+		}
+		if(mm<10) {
+			mm = '0'+mm
+		}
+		today = yyyy + '-' + mm + '-' + dd;
+		$("#date_picked").attr("value", today);
 	function initAutocomplete(){var e={types:["geocode"],componentRestrictions:{country:"in"}};(autocomplete=new google.maps.places.Autocomplete(document.getElementById("autocomplete"),e)).addListener("place_changed",fillInAddress)}function fillInAddress(){var e=autocomplete.getPlace();lat=e.geometry.location.lat(),lng=e.geometry.location.lng(),console.log("lat = "+lat),console.log("lang = "+lng)}var lat="",lng="";$(document).ready(function(){$("a").on("click",function(e){if(""!==this.hash){e.preventDefault();var t=this.hash;$("html, body").animate({scrollTop:$(t).offset().top},800,function(){window.location.hash=t})}}),$("select").material_select(),window.picker=$(".datepicker").pickadate({selectYears:201,format:"yyyy-mm-dd"}),$("#result").hide(),$("#preload").hide(),$("#submit_button").click(function(){$("#result").hide();var e=document.getElementById("autocomplete").value,t=document.getElementById("date_picked").value;document.getElementById("place").innerHTML=e,""==e?($("#result").hide(),document.getElementById("form_message").innerHTML="Please Enter location first!"):""==t?($("#result").hide(),document.getElementById("form_message").innerHTML="Please Choose date first!"):""==lat?($("#result").hide(),document.getElementById("form_message").innerHTML="Please Enter a valid location!"):($("html, body").animate({scrollTop:0},"slow"),$("#preload").show(),document.getElementById("submit_button").disabled=!0,document.getElementById("form_message").innerHTML="",console.log("location : "+e),console.log("date : "+t),$.get("https://api.sunrise-sunset.org/json?lat="+lat+"&lng="+lng+"&date="+t,function(e,t){console.log();var o=e.results.sunrise.split(":");console.log(o),o[0]=parseInt(o[0]),o[1]=parseInt(o[1]),o[2]=o[2].split(" "),o[2]=o[2][0],o[1]+=30,o[0]-=12,o[0]+=5,o[1]>=60&&(o[0]+=1,o[1]%=60),o[0]<10?o[0]="0"+o[0]:o[0]=""+o[0],o[1]<10?o[1]="0"+o[1]:o[1]=""+o[1],console.log(o),o=o[0]+":"+o[1]+":"+o[2]+" AM",console.log(o);var l=e.results.sunset.split(":");console.log(l),l[0]=parseInt(l[0]),l[1]=parseInt(l[1]),l[2]=l[2].split(" "),l[2]=l[2][0],l[1]+=30,l[0]+=5,l[1]>=60&&(l[0]+=1,l[1]%=60),l[0]<10?l[0]="0"+l[0]:l[0]=""+l[0],l[1]<10?l[1]="0"+l[1]:l[1]=""+l[1],console.log(l),l=l[0]+":"+l[1]+":"+l[2]+" PM",console.log(l),$("#preload").hide(),$("#result").show(),document.getElementById("rise").innerHTML=o,document.getElementById("set").innerHTML=l,document.getElementById("submit_button").disabled=!1}))})});var placeSearch,autocomplete
 	</script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2EvuNL673a8w-Fwt2QhVTinzTW6ZOdL8&libraries=places&callback=initAutocomplete">
